@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Future of AI in Academia: Open Source LLMs &amp; AI-Powered Work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink: #1a1a1a;
+      --ink-muted: #555;
+      --ink-faint: #888;
+      --rule: #d8d8d8;
+      --rule-light: #efefef;
+      --bg: #faf9f7;
+      --bg-warm: #f5f3ef;
+      --accent: #b5330a;
+      --accent-muted: #d4451200;
+      --mono: 'JetBrains Mono', monospace;
+      --serif-display: 'Playfair Display', Georgia, serif;
+      --serif-body: 'Source Serif 4', Georgia, serif;
+      --max-prose: 680px;
+      --max-wide: 960px;
+    }
+
+    html {
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif-body);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* ---- MASTHEAD ---- */
+    .masthead {
+      border-bottom: 1px solid var(--ink);
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      max-width: var(--max-wide);
+      margin: 0 auto;
+    }
+
+    .pub-name {
+      font-family: var(--serif-display);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pub-meta {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.04em;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      max-width: var(--max-wide);
+      margin: 0 auto;
+      padding: 64px 40px 48px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: var(--serif-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      max-width: 720px;
+      margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--ink-muted);
+      max-width: 600px;
+      font-style: italic;
+      margin-bottom: 36px;
+      line-height: 1.65;
+    }
+
+    .hero-byline {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule-light);
+    }
+
+    .byline-text {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      line-height: 1.8;
+    }
+
+    .byline-text strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* ---- LAYOUT ---- */
+    .layout {
+      max-width: var(--max-wide);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 0 56px;
+      align-items: start;
+    }
+
+    /* ---- ARTICLE ---- */
+    .article {
+      padding: 56px 0;
+      border-right: 1px solid var(--rule);
+      padding-right: 56px;
+    }
+
+    /* ---- SIDEBAR ---- */
+    .sidebar {
+      padding: 56px 0;
+      position: sticky;
+      top: 24px;
+    }
+
+    .sidebar-section {
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--rule-light);
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 14px;
+    }
+
+    .sidebar-toc a {
+      display: block;
+      font-size: 0.78rem;
+      font-family: var(--serif-body);
+      color: var(--ink-muted);
+      text-decoration: none;
+      padding: 5px 0;
+      border-left: 2px solid transparent;
+      padding-left: 10px;
+      transition: all 0.15s;
+      line-height: 1.45;
+    }
+
+    .sidebar-toc a:hover {
+      color: var(--ink);
+      border-left-color: var(--accent);
+    }
+
+    .sidebar-stat {
+      margin-bottom: 12px;
+    }
+
+    .sidebar-stat .num {
+      font-family: var(--serif-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .sidebar-stat .label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    /* ---- PROSE ---- */
+    .drop-cap::first-letter {
+      font-family: var(--serif-display);
+      font-size: 4.5rem;
+      font-weight: 700;
+      line-height: 0.85;
+      float: left;
+      margin-right: 8px;
+      margin-top: 6px;
+      color: var(--ink);
+    }
+
+    h2 {
+      font-family: var(--serif-display);
+      font-size: 1.55rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-top: 56px;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    h2::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 2px;
+      background: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-family: var(--serif-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 36px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin-bottom: 1.35em;
+      font-size: 1rem;
+      color: var(--ink);
+    }
+
+    p + p {
+      text-indent: 1.4em;
+    }
+
+    p:first-child,
+    h2 + p,
+    h3 + p,
+    .pullquote + p,
+    .callout + p,
+    .figure + p {
+      text-indent: 0;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--rule);
+      transition: text-decoration-color 0.15s;
+    }
+
+    a:hover {
+      text-decoration-color: var(--accent);
+    }
+
+    strong {
+      font-weight: 500;
+    }
+
+    /* ---- PULLQUOTE ---- */
+    .pullquote {
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--rule);
+      margin: 48px 0;
+      padding: 28px 0 24px;
+    }
+
+    .pullquote p {
+      font-family: var(--serif-display);
+      font-size: 1.35rem;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--ink);
+      text-indent: 0 !important;
+      margin-bottom: 10px;
+    }
+
+    .pullquote cite {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      font-style: normal;
+    }
+
+    /* ---- CALLOUT ---- */
+    .callout {
+      background: var(--bg-warm);
+      border-left: 3px solid var(--accent);
+      padding: 22px 24px;
+      margin: 36px 0;
+    }
+
+    .callout-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .callout p {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      text-indent: 0 !important;
+      margin-bottom: 0;
+    }
+
+    /* ---- FIGURE ---- */
+    .figure {
+      margin: 44px 0;
+    }
+
+    .figure-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      font-family: var(--mono);
+    }
+
+    .figure-table th {
+      font-weight: 500;
+      text-align: left;
+      border-bottom: 2px solid var(--ink);
+      padding: 8px 10px 8px 0;
+      letter-spacing: 0.04em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .figure-table td {
+      padding: 10px 10px 10px 0;
+      border-bottom: 1px solid var(--rule-light);
+      vertical-align: top;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .figure-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .figure-caption {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-top: 10px;
+    }
+
+    /* ---- RULE ---- */
+    .section-rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 48px 0;
+    }
+
+    /* ---- FOOTNOTES / REFERENCES ---- */
+    .references {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 2px solid var(--ink);
+    }
+
+    .references h2 {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-top: 0;
+      margin-bottom: 24px;
+      color: var(--ink-faint);
+    }
+
+    .references h2::before {
+      display: none;
+    }
+
+    .ref-list {
+      list-style: none;
+      counter-reset: ref-counter;
+    }
+
+    .ref-list li {
+      counter-increment: ref-counter;
+      padding: 8px 0 8px 28px;
+      position: relative;
+      border-bottom: 1px solid var(--rule-light);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      line-height: 1.55;
+    }
+
+    .ref-list li:last-child {
+      border-bottom: none;
+    }
+
+    .ref-list li::before {
+      content: counter(ref-counter);
+      position: absolute;
+      left: 0;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--ink-faint);
+      top: 11px;
+    }
+
+    /* ---- CONTINUE READING ---- */
+    .continue-reading {
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--rule);
+      margin: 52px 0;
+      padding: 28px 0 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+    }
+
+    .continue-reading-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      white-space: nowrap;
+      padding-top: 4px;
+      min-width: 90px;
+    }
+
+    .continue-reading-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .cr-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      text-decoration: none;
+      color: var(--ink);
+      border-bottom: 1px solid var(--rule-light);
+      padding-bottom: 14px;
+    }
+
+    .cr-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .cr-item:hover .cr-title {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--accent);
+    }
+
+    .cr-tag {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .cr-title {
+      font-family: var(--serif-display);
+      font-size: 0.98rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .cr-meta {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* ---- UP NEXT BANNER ---- */
+    .up-next-banner {
+      background: var(--ink);
+      color: var(--bg);
+      margin: 64px -56px 0;
+      padding: 36px 56px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .up-next-badge {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #888;
+      white-space: nowrap;
+    }
+
+    .up-next-content {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .up-next-tag {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aaa;
+    }
+
+    .up-next-title {
+      font-family: var(--serif-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #f5f3ef;
+      line-height: 1.3;
+    }
+
+    .up-next-sub {
+      font-family: var(--serif-body);
+      font-size: 0.75rem;
+      color: #999;
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    .up-next-cta {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg);
+      text-decoration: none;
+      border: 1px solid #555;
+      padding: 9px 18px;
+      white-space: nowrap;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .up-next-cta:hover {
+      border-color: #fff;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* ---- MORE FROM ---- */
+    .more-from {
+      max-width: var(--max-wide);
+      margin: 0 auto;
+      padding: 56px 40px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .more-from-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 32px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 14px;
+    }
+
+    .more-from-heading {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .more-from-all {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .more-from-all:hover {
+      text-decoration: underline;
+    }
+
+    .more-from-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .mf-card {
+      padding: 0 28px 0 0;
+      border-right: 1px solid var(--rule-light);
+      margin-right: 28px;
+      text-decoration: none;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mf-card:last-child {
+      border-right: none;
+      padding-right: 0;
+      margin-right: 0;
+    }
+
+    .mf-card:hover .mf-title {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--accent);
+    }
+
+    .mf-tag {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .mf-title {
+      font-family: var(--serif-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .mf-excerpt {
+      font-family: var(--serif-body);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    .mf-meta {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid var(--rule-light);
+    }
+
+    /* ---- NEWSLETTER STRIP ---- */
+    .newsletter-strip {
+      background: var(--bg-warm);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      max-width: var(--max-wide);
+      margin: 0 auto 0;
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .newsletter-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .newsletter-heading {
+      font-family: var(--serif-display);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .newsletter-sub {
+      font-family: var(--serif-body);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+
+    .newsletter-cta {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--ink);
+      text-decoration: none;
+      padding: 10px 22px;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .newsletter-cta:hover {
+      background: var(--accent);
+      text-decoration: none;
+      color: var(--bg);
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      border-top: 1px solid var(--ink);
+      max-width: var(--max-wide);
+      margin: 0 auto;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin: 0;
+      text-indent: 0;
+    }
+
+    /* ---- RESPONSIVE ADDITIONS ---- */
+    @media (max-width: 768px) {
+      .up-next-banner {
+        margin: 48px 0 0;
+        padding: 28px 22px;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .up-next-badge { display: none; }
+      .up-next-cta { align-self: flex-start; }
+      .more-from-grid { grid-template-columns: 1fr; gap: 24px; }
+      .mf-card { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid var(--rule-light); padding-bottom: 24px; }
+      .mf-card:last-child { border-bottom: none; padding-bottom: 0; }
+      .newsletter-strip { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .continue-reading { flex-direction: column; gap: 14px; }
+      .continue-reading-label { min-width: unset; }
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .masthead, .hero, footer {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+        padding: 0 22px;
+      }
+
+      .article {
+        border-right: none;
+        padding-right: 0;
+      }
+
+      .sidebar {
+        position: static;
+        border-top: 1px solid var(--rule);
+        padding-top: 36px;
+      }
+
+      .sidebar-toc { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD -->
+  <header>
+    <div class="masthead">
+      <span class="pub-name">The Academic Review</span>
+      <span class="pub-meta">Analysis &amp; Commentary &nbsp;/&nbsp; March 2026 &nbsp;/&nbsp; Higher Education &amp; Technology</span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">AI in Academia</div>
+    <h1 class="hero-title">The Future of AI in Academia: Open Source LLMs and AI-Powered Work</h1>
+    <p class="hero-subtitle">As artificial intelligence reshapes scholarship, Indian universities face a pivotal question: who controls the tools of knowledge, and who gets left out?</p>
+    <div class="hero-byline">
+      <div class="byline-text">
+        <strong>Special Report</strong><br>
+        Published March 2026 &nbsp;&middot;&nbsp; 18 min read
+      </div>
+      <div class="byline-text">
+        <strong>Topics</strong><br>
+        Open Source &middot; LLMs &middot; NEP 2020 &middot; IndiaAI Mission &middot; Academic Integrity
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO-COLUMN LAYOUT -->
+  <div class="layout">
+
+    <!-- ARTICLE BODY -->
+    <article class="article">
+
+      <!-- SECTION 1 -->
+      <p class="drop-cap">In the corridors of Indian higher education, something is quietly shifting. Students at IIT Delhi are using large language models to synthesise literature reviews overnight. PhD scholars at IISc are running open-source models locally to analyse datasets their departments cannot afford to send to commercial APIs. A first-year student in Pune is using Meta's Llama on a borrowed laptop to understand a thermodynamics problem that her professor explained only in English, a language she reads less fluently than Marathi. The technology is already here. The question facing India's universities is not whether to engage with AI but how, on whose terms, and at what cost.</p>
+
+      <p>This report is grounded in a campus-wide survey exploring attitudes toward providing institutional access to open-source large language models (LLMs), fostering an environment for AI-assisted research, and redefining the norms of academic work in an era when a machine can draft a passable journal abstract in seconds. The findings are neither a warning nor an uncritical endorsement. They are, instead, a call for deliberate, equitable, and India-specific policy.</p>
+
+      <hr class="section-rule" />
+
+      <!-- SECTION 2 -->
+      <h2 id="context">Context: India at an Inflection Point</h2>
+
+      <p>India has every reason to take AI in education seriously. Its education system caters to more than 250 million learners, making uniform pedagogy structurally impossible. Socio-economic divides, linguistic plurality, and stark gaps between Tier-1 and Tier-3 institutions have long frustrated efforts at equitable access to quality education. AI, designed thoughtfully, could become the most powerful equaliser India's classrooms have ever seen.</p>
+
+      <p>The policy architecture is beginning to reflect this urgency. <strong>The National Education Policy (NEP) 2020</strong> explicitly calls for the integration of AI and computational thinking across all levels of schooling. The Union Budget 2025-26 allocated Rs 500 crore for a dedicated Centre of Excellence in AI for Education, and AI and Computational Thinking is being introduced as a compulsory subject from Class 3, beginning academic year 2026-27. The <strong>IndiaAI Mission</strong>, launched in March 2024 with a budget of Rs 10,371.92 crore, fosters innovation across government, startups, and academia, and by 2025-26 its budget had received a 1,056 percent increase to Rs 2,000 crore for its FutureSkills pillar alone.</p>
+
+      <div class="callout">
+        <div class="callout-label">Survey Context</div>
+        <p>This blog draws on the results of a campus-wide survey at an Indian university exploring student and faculty perspectives on AI, open-source LLM access, and AI-assisted academic work. Participation was voluntary and responses were anonymous. The findings informed the policy recommendations in the final section of this report.</p>
+      </div>
+
+      <p>Yet the ground-level reality is uneven. According to UDISE+ 2024-25 data, only about 58 percent of Indian schools have functional computers, and internet access hovers around 64 percent. More than 7 percent of schools are single-teacher institutions. This infrastructure gap does not disappear at the university level. While leading institutions like the IITs and IISc are investing heavily in AI infrastructure, many state universities and smaller engineering colleges remain under-resourced.</p>
+
+      <div class="pullquote">
+        <p>"Our goal is to elevate Indian universities to world-class standards while fostering global connections, ensuring that no one is left behind in this AI-driven transformation."</p>
+        <cite>Dharmendra Pradhan, Union Minister for Education, Press Information Bureau, 2025</cite>
+      </div>
+
+      <!-- SECTION 3 -->
+      <h2 id="llms">What Are Open-Source LLMs, and Why Do They Matter?</h2>
+
+      <p>A large language model is a machine learning system trained on vast corpora of text to understand and generate human-like language. Models like Meta's Llama 3, Google's Gemma, Mistral, and DeepSeek R1 are described as open-source or open-weight, meaning their underlying parameters are publicly released for use, fine-tuning, and inspection. This distinguishes them from proprietary systems like GPT-4 or Gemini Advanced, which are accessible only through paid APIs and offer no visibility into training data or model internals.</p>
+
+      <p>For academia, the distinction is not merely technical. It is philosophical. Open-source models can be run on local hardware, protecting sensitive research data from being transmitted to third-party servers. They can be fine-tuned on domain-specific corpora, making them far more useful for specialised fields. They can be studied, critiqued, and audited, which is a basic precondition for scientific rigour. And they do not require per-token payment, which makes scale both possible and affordable.</p>
+
+      <div class="figure">
+        <table class="figure-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Parameters</th>
+              <th>License</th>
+              <th>Academic Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Meta Llama 3</td>
+              <td>8B to 70B</td>
+              <td>Llama Community License</td>
+              <td>Research, fine-tuning, on-device deployment</td>
+            </tr>
+            <tr>
+              <td>Mistral 7B / Large 2</td>
+              <td>7B to 123B</td>
+              <td>Apache 2.0 / Mistral Research License</td>
+              <td>Long-context tasks, multilingual work</td>
+            </tr>
+            <tr>
+              <td>Google Gemma</td>
+              <td>2B to 27B</td>
+              <td>Gemma Terms of Use</td>
+              <td>Lightweight deployment, modest hardware</td>
+            </tr>
+            <tr>
+              <td>DeepSeek R1</td>
+              <td>7B to 671B</td>
+              <td>MIT</td>
+              <td>Reasoning tasks, research workflows</td>
+            </tr>
+            <tr>
+              <td>BLOOM</td>
+              <td>176B</td>
+              <td>BigScience RAIL</td>
+              <td>Multilingual NLP (46 languages including Hindi)</td>
+            </tr>
+            <tr>
+              <td>AI4Bharat Airavata</td>
+              <td>Varies</td>
+              <td>Open (research)</td>
+              <td>Indian language understanding and generation</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="figure-caption">Table 1: Selected open-source LLMs and their suitability for academic contexts. Sources: Instaclustr (2025); AI4Bharat (2025); Medium/Jonathan Lee (2025).</p>
+      </div>
+
+      <p>In early 2024, Carnegie Mellon University offered a course where students built their own mini-GPT by progressively training and fine-tuning open models, a form of hands-on engagement that would have been impossible in an era of only proprietary models. This kind of pedagogical innovation, where the tool itself is the subject of inquiry, is precisely what open-source access enables.</p>
+
+      <!-- CONTINUE READING (inline) -->
+      <div class="continue-reading">
+        <div class="continue-reading-label">Continue Reading</div>
+        <div class="continue-reading-links">
+          <a href="#" class="cr-item">
+            <span class="cr-tag">Policy &amp; Governance</span>
+            <span class="cr-title">NEP 2020 and the Digital Divide: Has India's Flagship Education Reform Delivered?</span>
+            <span class="cr-meta">February 2026 &nbsp;&middot;&nbsp; 12 min read</span>
+          </a>
+          <a href="#" class="cr-item">
+            <span class="cr-tag">Technology</span>
+            <span class="cr-title">Inside IIT Madras's AI4Bharat Lab: The Quiet Effort to Build India's Language Stack</span>
+            <span class="cr-meta">January 2026 &nbsp;&middot;&nbsp; 9 min read</span>
+          </a>
+          <a href="#" class="cr-item">
+            <span class="cr-tag">Research</span>
+            <span class="cr-title">Why Indian Research Papers Are Underrepresented in Global AI Benchmarks</span>
+            <span class="cr-meta">December 2025 &nbsp;&middot;&nbsp; 7 min read</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SECTION 4 -->
+      <h2 id="india-llms">India's Own AI Ecosystem: Building from Within</h2>
+
+      <p>Among the most consequential developments in global AI is the emergence of India-specific language models. This matters profoundly for universities. A model trained predominantly on English-language internet data will serve an English-speaking student well. It will serve a Marathi-speaking student in Aurangabad, a Tamil-speaking researcher in Coimbatore, or a Bengali-speaking scholar in Kolkata, far less well.</p>
+
+      <p>AI4Bharat, based at IIT Madras, has pioneered the development of multilingual LLMs tailored for Indian languages, including IndicBERT, IndicBART, and Airavata, trained on extensive and diverse datasets encompassing all 22 scheduled languages and competing with commercial models on multiple benchmarks.</p>
+
+      <p>BharatGen, inaugurated by the Ministry of Science and Technology, is developing state-of-the-art models for conversational AI, automatic speech recognition, text-to-speech, and translation, all tailored to Indian Knowledge Systems and cultural perspectives, with open-source releases planned for 2025.</p>
+
+      <p>Tech Mahindra's Project Indus was initially trained in Hindi and around 37 dialects and plans to cover other languages in phases; Ola's Krutrim, announced in December 2023, claimed the ability to write in 10 Indian languages while understanding 20. These are not merely technological curiosities. They represent a bid for what scholars of AI governance call "data sovereignty": the right of communities to have AI systems that reflect their languages, epistemologies, and cultural frames.</p>
+
+      <p>In 2024, IBM researchers released MILU, an open-source multi-task Indic language understanding benchmark designed to evaluate LLMs in cultural knowledge across 11 Indic languages and 41 subjects. The significance for universities is direct: institutions can now benchmark which open-source models best serve their student populations, and they can advocate for models that score well on Indian-language tasks.</p>
+
+      <div class="callout">
+        <div class="callout-label">Key Initiative</div>
+        <p>The Srijan Centre for GenAI, established at IIT Jodhpur in partnership with Meta, and the YuvAI initiative, which targets 100,000 students aged 18 to 30 to develop AI solutions for healthcare, agriculture, and smart cities, represent institutional bets on the value of open-source, India-native AI development in academic settings.</p>
+      </div>
+
+      <!-- SECTION 5 -->
+      <h2 id="research">Transforming Research: What AI-Assisted Scholarship Actually Looks Like</h2>
+
+      <p>The practical applications of LLMs in Indian academic research are already substantial, and they go well beyond the student chatbot use case that dominates public discourse. Consider a few concrete scenarios drawn from the survey responses and broader institutional data.</p>
+
+      <h3>Literature Review and Synthesis</h3>
+      <p>A researcher navigating 400 papers across two decades of Indian agricultural economics does not have a shortage of data. She has a shortage of time. An open-source LLM fine-tuned on academic abstracts can reduce the first pass of a literature review from weeks to days, flagging key themes, methodological divergences, and citation gaps. The researcher retains interpretive authority; the model handles pattern recognition at scale.</p>
+
+      <h3>Multilingual Research Access</h3>
+      <p>India's academic output in regional languages, including significant scholarship in Tamil, Telugu, Bengali, and Kannada, is largely inaccessible to researchers who do not read those languages. Open-source models with strong Indic language capabilities can serve as translational intermediaries, enabling cross-linguistic collaboration and surfacing local knowledge that would otherwise remain invisible to a Westernised research mainstream.</p>
+
+      <h3>Code and Data Analysis</h3>
+      <p>Models like Mistral Large 2 and Llama 3 offer robust coding and data analysis capabilities; open-source coding assistants integrated into IDEs are now feasible without cloud access, enabling students without reliable internet connectivity to use AI-assisted development workflows. For engineering and science students in institutions with patchy connectivity, this localisation is not a minor convenience. It is the difference between access and exclusion.</p>
+
+      <h3>Personalised Tutoring at Scale</h3>
+      <p>AI dynamically adjusts content difficulty based on learner performance and pace; platforms like Embibe, for instance, analyse test responses to generate targeted remedial practice for JEE and NEET aspirants. Campus-wide deployment of open-source models could bring this personalisation to a broader range of subjects and student populations, not just those wealthy enough to afford commercial tutoring platforms.</p>
+
+      <p>The aggregate picture is striking. A pilot project using AI at a private university in Bangalore reported a 28 percent reduction in dropout rates over one academic year, driven by predictive models that identified at-risk students and enabled early intervention.</p>
+
+      <!-- SECTION 6 -->
+      <h2 id="integrity">Academic Integrity in the Age of Generative AI</h2>
+
+      <p>No honest treatment of AI in academia can avoid this subject. The arrival of generative AI has created genuine and unresolved tensions around what it means to produce original academic work, how we assess students, and what constitutes intellectual honesty. These tensions are not unique to India, but they manifest in particular ways given the scale and diversity of India's higher education system.</p>
+
+      <p>Research published in Behaviour and Information Technology in 2025 examined 413 business school students in India who had already used ChatGPT and found that psychological rationalisation strategies had a greater impact than deterrence factors in predicting AI misuse, with male students relatively more likely to exhibit such behaviour, a finding with direct implications for how institutions design academic integrity interventions.</p>
+
+      <p>Indian universities regulate traditional plagiarism with anti-plagiarism detection systems, but the majority are not sufficiently prepared to identify AI-generated content that is contextually relevant and original and therefore bypasses traditional checks. The challenge is structural: AI-generated text does not match any existing published work in a database. Conventional plagiarism detection is designed for a pre-generative-AI world.</p>
+
+      <div class="pullquote">
+        <p>"The real question is not whether a student used AI. It is whether they engaged in genuine intellectual labour, and whether our assessments are designed to reveal that."</p>
+        <cite>Adapted from the survey framework, March 2026</cite>
+      </div>
+
+      <p>India's leading institutions are beginning to respond. IIT Delhi formed a dedicated committee in April 2024 that explored how generative AI tools could be ethically integrated into teaching and research; after collecting feedback from students and faculty, the committee revealed that 80 percent of students reported using generative AI tools regularly and established mandatory disclosure requirements for AI-generated content. IIT Delhi is the first IIT to officially release such guidelines.</p>
+
+      <p>The guidelines specify that any work or content generated with the assistance of AI tools must be completely disclosed to guarantee transparency, and that if AI tools are used to create distinct elements such as images, tables, data visualisations, or significant sections of text, this use should be noted in captions, footnotes, or a statement within the work.</p>
+
+      <p>The UGC has encouraged higher education institutions to develop their own AI usage policies and has cited IIIT-Delhi's approach as a model for structured, transparent AI integration, though India does not yet have institution-specific UGC regulations specifically addressing AI-assisted academic dishonesty as of early 2026.</p>
+
+      <p>A more nuanced framing, and one supported by the survey responses received, is that the goal should not be to eliminate AI use but to design assessments that are genuinely robust to it. This means a shift from take-home essays toward oral examinations, in-class work, process portfolios, and project-based evaluation where the AI's contribution, if any, is visible and declared.</p>
+
+      <!-- SECTION 7 -->
+      <h2 id="campus">The Case for Campus-Wide Open-Source LLM Access</h2>
+
+      <p>The survey asked a direct question: should the university provide campus-wide access to an open-source large language model, hosted on institutional infrastructure? The responses were instructive. Students overwhelmingly supported the idea, citing cost, privacy, and the desire to experiment. Faculty were more divided, with concerns about misuse, the undermining of assessments, and the risk of students becoming dependent on AI for reasoning tasks they should develop themselves. Both concerns are valid. Both can be addressed through policy.</p>
+
+      <p>The argument for institutional provision is, at its core, an equity argument. Students at well-funded private universities or those with personal means to pay for commercial AI subscriptions already have access to powerful AI tools. Their peers at underfunded state universities or from lower-income families do not. Leaving AI access to the market means that AI becomes yet another vector of educational inequality, layered atop existing divides of language, geography, and socioeconomic status.</p>
+
+      <div class="figure">
+        <table class="figure-table">
+          <thead>
+            <tr>
+              <th>Concern</th>
+              <th>Policy Response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI misuse in assessments</td>
+              <td>Redesign assessments toward process-based and oral evaluation; mandatory AI-use disclosure</td>
+            </tr>
+            <tr>
+              <td>Data privacy (student queries sent to external servers)</td>
+              <td>Self-hosted open-source models on campus infrastructure; no third-party data transmission</td>
+            </tr>
+            <tr>
+              <td>Dependence undermining critical thinking</td>
+              <td>"Digital temperance" policies; structured AI-free foundational exercises before AI-assisted work</td>
+            </tr>
+            <tr>
+              <td>Language and cultural bias in models</td>
+              <td>Prioritise Indic-language models (AI4Bharat, BharatGen); participate in localisation efforts</td>
+            </tr>
+            <tr>
+              <td>Faculty unpreparedness</td>
+              <td>Structured faculty development on AI-assisted pedagogy; peer learning communities</td>
+            </tr>
+            <tr>
+              <td>Cost of GPU infrastructure</td>
+              <td>Consortium models across institutions; IndiaAI Mission compute grants; quantised small models</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="figure-caption">Table 2: Key concerns raised in the campus survey and proposed institutional responses.</p>
+      </div>
+
+      <p>The privacy argument for open-source, locally hosted models is particularly compelling in the Indian context. The <strong>Digital Personal Data Protection Act, 2023</strong> places significant obligations on entities that process personal data. When students submit queries about their research, their mental health, their career anxieties, and their academic struggles to commercial AI systems, that data flows to servers outside India, governed by terms of service that few students read and fewer understand. A self-hosted open-source model eliminates this exposure entirely.</p>
+
+      <!-- SECTION 8 -->
+      <h2 id="governance">Governance, Ethics, and the Road Ahead</h2>
+
+      <p>As AI becomes more pervasive in admissions, assessments, and student analytics, Indian universities must establish ethics review boards and develop data governance frameworks to ensure AI adoption is grounded in transparency, fairness, and accountability. The survey responses echo this. Students do not simply want access to AI; they want assurance that the AI being deployed in administrative decisions, from admissions to scholarship allocation, is not encoding historical biases in its outputs.</p>
+
+      <p>The IndiaAI Governance Guidelines, developed under an Advisory Group chaired by the Principal Scientific Advisor, outline a coordinated whole-of-government approach to AI compliance and responsible deployment, with direct relevance to educational institutions. These guidelines represent an important policy floor. Universities must build on them, not merely satisfy them.</p>
+
+      <p>Faculty development is a dimension that often goes unaddressed in technology policy. It is insufficient to deploy an LLM on campus if faculty have not been equipped to redesign their courses, assessment strategies, and research workflows in response. UGC has supported the establishment of research centres focusing on AI and machine learning, and AICTE has encouraged institutions to introduce interdisciplinary AI courses and establish AI labs aligned with industry standards. These are necessary but not sufficient. What is needed is granular, discipline-specific guidance: what does responsible AI use look like in a sociology seminar, a civil engineering lab, a law school, a school of fine arts?</p>
+
+      <p>The concept of "digital temperance," implementing policies that encourage students to engage unaided with foundational concepts before using AI assistants, is gaining currency as an approach to building meta-cognitive resilience. It is a useful framing, though its application requires care. There is a meaningful difference between a student who uses AI because she genuinely cannot understand a concept without scaffolding, and a student who uses AI to avoid the effort of engaging at all. Policy must distinguish between these cases.</p>
+
+      <div class="pullquote">
+        <p>"Open-source benchmarks play a crucial role in advancing AI research because they make progress measurable, transparent, and reproducible."</p>
+        <cite>Michal Shmueli-Scheuer, Distinguished Engineer, IBM AI Benchmarking and Evaluation, IBM Think, 2025</cite>
+      </div>
+
+      <!-- SECTION 9 -->
+      <h2 id="recommendations">Recommendations for Indian Universities</h2>
+
+      <p>The survey results, combined with the policy and research landscape reviewed above, support the following institutional recommendations. They are offered not as a universal prescription but as a starting framework that institutions should adapt to their specific contexts, resources, and student populations.</p>
+
+      <h3>1. Establish a Campus AI Policy Council</h3>
+      <p>Convene a standing body with representation from faculty across disciplines, students, technical staff, and institutional leadership. This council should develop and revise AI usage policies, review academic integrity cases involving AI, and serve as the institutional interface with UGC and AICTE guidance.</p>
+
+      <h3>2. Pilot a Self-Hosted Open-Source LLM</h3>
+      <p>Partner with the IndiaAI Mission or peer institutions to deploy a locally hosted open-source model, prioritising models with strong Indic language capabilities. Begin with a controlled pilot open to graduate researchers before broader rollout. Measure usage patterns, assess impact on research output, and gather structured feedback.</p>
+
+      <h3>3. Redesign Assessment for the AI Era</h3>
+      <p>Phase in oral components, process portfolios, and in-class assignments across departments. Develop AI-use disclosure norms consistent with the IIT Delhi model. Invest in faculty development so that assessment redesign is informed by disciplinary context, not imposed from above.</p>
+
+      <h3>4. Contribute to India's AI Ecosystem</h3>
+      <p>Encourage faculty and student contributions to open-source Indic language datasets and benchmarks. Institutions that participate in building tools like AI4Bharat's corpora or BharatGen's training data are not merely consumers of AI; they become co-producers of a more equitable AI future.</p>
+
+      <h3>5. Centre Equity in Every Decision</h3>
+      <p>Any AI policy that does not explicitly address the needs of students from lower-income backgrounds, from regional language backgrounds, or from under-resourced campuses, risks reproducing existing inequalities at algorithmic speed. Every decision on tool selection, infrastructure investment, and policy design should begin with the question: who benefits, and who is left out?</p>
+
+      <hr class="section-rule" />
+
+      <!-- CONCLUSION -->
+      <h2 id="conclusion">Conclusion: The University as a Site of Contested Futures</h2>
+
+      <p>The rise of AI in academia is not a single event but a process, uneven, contested, and full of consequence. For India, a country where the stakes of educational access are among the highest in the world, the choices made in the next few years about how universities adopt, govern, and critique AI will shape intellectual life for a generation.</p>
+
+      <p>Open-source LLMs represent, at their best, an opportunity to democratise access to sophisticated intellectual tools. They are not a solution to structural inequality, but they can be designed and deployed in ways that do not deepen it. That requires universities that are willing to think carefully, act collectively, and hold both the promise and the peril of this technology in view simultaneously.</p>
+
+      <p>The students who responded to the survey that inspired this report are not asking for AI to replace their education. They are asking for the tools to participate fully in a world that is being reshaped by AI whether their institutions are ready for it or not. The appropriate institutional response is neither panic nor cheerleading. It is the same thing that good universities have always done: ask hard questions, build robust frameworks, and keep the focus relentlessly on learning.</p>
+
+      <!-- REFERENCES -->
+      <div class="references">
+        <h2>References</h2>
+        <ol class="ref-list">
+          <li>AI4Bharat. (2025). <em>Multilingual LLMs and Indic corpora for Indian languages.</em> Indian Institute of Technology Madras. <a href="https://ai4bharat.iitm.ac.in" target="_blank">ai4bharat.iitm.ac.in</a></li>
+          <li>BharatGen. (2025). <em>India's first sovereign AI: Building multimodal LLMs for 22 Indian languages.</em> BharatGen Consortium. <a href="https://bharatgen.com" target="_blank">bharatgen.com</a></li>
+          <li>Cotton, D. R. E., Cotton, P. A., &amp; Shipway, J. R. (2023). Chatting and cheating: Ensuring academic integrity in the era of ChatGPT. <em>Innovations in Education and Teaching International, 61</em>(2), 228-239. Taylor &amp; Francis.</li>
+          <li>Government of India, Ministry of Education. (2020). <em>National Education Policy 2020.</em> Press Information Bureau, New Delhi.</li>
+          <li>Government of India, Ministry of Electronics and Information Technology. (2024). <em>IndiaAI Mission: Budget allocation and programme pillars.</em> MeitY, New Delhi.</li>
+          <li>Government of India. (2023). <em>Digital Personal Data Protection Act, 2023.</em> Gazette of India.</li>
+          <li>IBM Research. (2024). <em>MILU: Multi-task Indic language understanding benchmark across 11 Indic languages and 41 subjects.</em> IBM Think. <a href="https://www.ibm.com/think/news/indqa-llm-benchmark" target="_blank">ibm.com</a></li>
+          <li>Lee, J. (2025, July). The rise of open-source AI models (2024-2025). <em>Medium.</em> <a href="https://medium.com/@justjlee/the-rise-of-open-source-ai-models-2024-2025-11354a0e8e23" target="_blank">medium.com</a></li>
+          <li>Lukmaan IAS PIB Summary. (2026, March 16). <em>AI in Education: IndiaAI Mission, UGC-AICTE reforms, and digital temperance.</em> <a href="https://blog.lukmaanias.com/2026/03/16/ai-in-education/" target="_blank">blog.lukmaanias.com</a></li>
+          <li>Mahapatra, P. K. et al. (2024). Industry-academia AI partnerships in India: IIT Bombay-NVIDIA and beyond. <em>Journal of Higher Education Technology, India.</em></li>
+          <li>Mazumder, A. K. et al. (2024). Responsible use of generative AI in Indian research journals indexed in Scopus. <em>Indian Journal of Research Policy.</em></li>
+          <li>MediaNama. (2024, October 10). <em>Indian government to launch open-source AI datasets platform by January 2025.</em> <a href="https://www.medianama.com/2024/10/223-indian-govt-to-launch-open-source-ai-datasets-platform-by-2025/" target="_blank">medianama.com</a></li>
+          <li>Ministry of Science and Technology, India. (2024, September 30). <em>BharatGen inauguration: Government-funded multimodal LLM initiative for Indian languages.</em> Press Information Bureau.</li>
+          <li>Mundhe, S. (2024). AI-assisted early warning systems and dropout prevention: A case study from Bangalore. <em>Journal of Educational Data Science, 3</em>(1).</li>
+          <li>MDPI. (2025). Academic integrity in the generative AI era: A systematic review. <em>IJRISS, 9</em>(5). <a href="https://www.mdpi.com/2673-4591/107/1/26" target="_blank">mdpi.com</a></li>
+          <li>Rane, N. (2023). Roles and challenges of ChatGPT in achieving Sustainable Development Goal 4. <em>Social Science Research Network, Mumbai.</em></li>
+          <li>ResearchGate. (2025). <em>Artificial intelligence and the future of Indian universities: Challenges and opportunities.</em> <a href="https://www.researchgate.net/publication/390492776" target="_blank">researchgate.net</a></li>
+          <li>The Higher Education Review. (2025, August). <em>IIT Delhi introduces strict GenAI usage rules for students and faculty.</em> <a href="https://www.thehighereducationreview.com" target="_blank">thehighereducationreview.com</a></li>
+          <li>University Grants Commission. (2024). <em>National Programme on Artificial Intelligence (NPAI) Skilling Framework.</em> UGC, New Delhi.</li>
+          <li>Zuboff, S. (2023). <em>The Age of Surveillance Capitalism: The Fight for a Human Future at the New Frontier of Power</em> (reprint ed.). PublicAffairs.</li>
+        </ol>
+      </div>
+
+      <!-- UP NEXT BANNER -->
+      <div class="up-next-banner">
+        <div class="up-next-badge">Up Next</div>
+        <div class="up-next-content">
+          <span class="up-next-tag">Academic Integrity &nbsp;&middot;&nbsp; Special Report</span>
+          <span class="up-next-title">Who Owns the Argument? Authorship, AI, and the Crisis of Attribution in Indian Universities</span>
+          <span class="up-next-sub">As generative AI becomes embedded in scholarly writing, the definition of original thought is being renegotiated in real time.</span>
+        </div>
+        <a href="#" class="up-next-cta">Read Blog &rarr;</a>
+      </div>
+
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">In this Blog</div>
+        <nav class="sidebar-toc">
+          <a href="#context">India at an Inflection Point</a>
+          <a href="#llms">Open-Source LLMs Explained</a>
+          <a href="#india-llms">India's Own AI Ecosystem</a>
+          <a href="#research">Transforming Research</a>
+          <a href="#integrity">Academic Integrity</a>
+          <a href="#campus">The Case for Campus Access</a>
+          <a href="#governance">Governance and Ethics</a>
+          <a href="#recommendations">Recommendations</a>
+          <a href="#conclusion">Conclusion</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Key figures</div>
+
+        <div class="sidebar-stat">
+          <div class="num">Rs 10,371 cr</div>
+          <div class="label">IndiaAI Mission budget, 2024</div>
+        </div>
+
+        <div class="sidebar-stat">
+          <div class="num">80%</div>
+          <div class="label">IIT Delhi students using GenAI regularly, 2024</div>
+        </div>
+
+        <div class="sidebar-stat">
+          <div class="num">22</div>
+          <div class="label">Indian languages targeted by BharatGen LLMs</div>
+        </div>
+
+        <div class="sidebar-stat">
+          <div class="num">250M+</div>
+          <div class="label">Learners in India's higher education ecosystem</div>
+        </div>
+
+        <div class="sidebar-stat">
+          <div class="num">28%</div>
+          <div class="label">Dropout reduction via AI early warning (Bangalore pilot, 2024)</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Related initiatives</div>
+        <nav class="sidebar-toc">
+          <a href="https://ai4bharat.iitm.ac.in" target="_blank">AI4Bharat, IIT Madras</a>
+          <a href="https://bharatgen.com" target="_blank">BharatGen Sovereign AI</a>
+          <a href="https://indiaaim.in" target="_blank">IndiaAI Mission (MeitY)</a>
+          <a href="https://ugc.ac.in" target="_blank">UGC NPAI Skilling Framework</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">About this report</div>
+        <p style="font-size:0.75rem;color:var(--ink-muted);line-height:1.6;">This blog draws on a campus survey on AI in academia, supplemented by analysis of policy documents, institutional guidelines, and peer-reviewed research published between 2023 and 2026. It is intended to inform university policy deliberations, not to represent the views of any specific institution.</p>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- MORE FROM THE ACADEMIC REVIEW -->
+  <section class="more-from">
+    <div class="more-from-header">
+      <span class="more-from-heading">More from The Academic Review</span>
+      <a href="#" class="more-from-all">View all Blog Posts &rarr;</a>
+    </div>
+    <div class="more-from-grid">
+
+      <a href="#" class="mf-card">
+        <span class="mf-tag">Higher Education</span>
+        <span class="mf-title">The Quiet Crisis in India's State Universities: Underfunding, Attrition, and the Brain Drain No One Is Talking About</span>
+        <span class="mf-excerpt">While the IITs and IISc attract global attention, the institutions educating the vast majority of India's students are struggling for survival.</span>
+        <span class="mf-meta">March 2026 &nbsp;&middot;&nbsp; 14 min read</span>
+      </a>
+
+      <a href="#" class="mf-card">
+        <span class="mf-tag">Technology &amp; Society</span>
+        <span class="mf-title">Data Sovereignty and the Indian Classroom: Why Sending Student Queries to Foreign Servers Is a Policy Problem</span>
+        <span class="mf-excerpt">The Digital Personal Data Protection Act created a legal framework. Now universities must build the institutional practice to match it.</span>
+        <span class="mf-meta">February 2026 &nbsp;&middot;&nbsp; 10 min read</span>
+      </a>
+
+      <a href="#" class="mf-card">
+        <span class="mf-tag">Research Policy</span>
+        <span class="mf-title">Open Access, Open Models: How the Global Move Toward Transparent AI Is Reshaping Scientific Publishing in India</span>
+        <span class="mf-excerpt">From preprint servers to open-weight models, the infrastructure of scholarly knowledge is undergoing its most significant transformation in decades.</span>
+        <span class="mf-meta">January 2026 &nbsp;&middot;&nbsp; 11 min read</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-strip">
+    <div class="newsletter-text">
+      <span class="newsletter-heading">The Academic Review &mdash; Weekly Briefing</span>
+      <span class="newsletter-sub">Policy analysis, research findings, and commentary on Indian higher education, delivered every Thursday.</span>
+    </div>
+    <a href="#" class="newsletter-cta">Subscribe Free</a>
+  </div>
+
+  <footer>
+    <p>The Academic Review &mdash; Higher Education &amp; Technology</p>
+    <p>March 2026 &nbsp;&middot;&nbsp; All references cited in body text</p>
+  </footer>
+
+</body>
+</html>
