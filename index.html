@@ -23,13 +23,112 @@
       --bg: #faf9f7;
       --bg-warm: #f5f3ef;
       --accent: #b5330a;
-      --accent-muted: #d4451200;
       --mono: 'JetBrains Mono', monospace;
       --serif-display: 'Playfair Display', Georgia, serif;
       --serif-body: 'Source Serif 4', Georgia, serif;
       --max-prose: 680px;
       --max-wide: 960px;
+      --toggle-size: 36px;
     }
+
+    [data-theme="dark"] {
+      --ink: #e8e4de;
+      --ink-muted: #a09890;
+      --ink-faint: #6a625a;
+      --rule: #2e2b27;
+      --rule-light: #242220;
+      --bg: #141210;
+      --bg-warm: #1a1714;
+      --accent: #d46840;
+    }
+
+    /* ---- THEME TRANSITION ---- */
+    *, *::before, *::after {
+      transition:
+        background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color     0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        color            0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow       0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Exempt motion-sensitive properties from blanket transition */
+    a, button, .up-next-cta, .newsletter-cta, .sidebar-toc a, .cr-item, .mf-card {
+      transition:
+        background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color     0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        color            0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        text-decoration-color 0.2s ease,
+        opacity 0.2s ease;
+    }
+
+    /* ---- RIPPLE OVERLAY ---- */
+    #theme-ripple {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    #theme-ripple .ripple-circle {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      opacity: 0;
+    }
+
+    #theme-ripple .ripple-circle.animating {
+      animation: ripple-expand 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes ripple-expand {
+      0%   { transform: scale(0); opacity: 1; }
+      60%  { opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+
+    /* ---- TOGGLE BUTTON ---- */
+    .theme-toggle {
+      position: relative;
+      width: var(--toggle-size);
+      height: var(--toggle-size);
+      border: 1px solid var(--rule);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0;
+      border-radius: 0;
+      outline: none;
+      overflow: hidden;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--ink-faint);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Sun icon */
+    .icon-sun, .icon-moon {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    }
+
+    /* Light mode: show sun, hide moon */
+    :root .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+    :root .icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+
+    /* Dark mode: show moon, hide sun */
+    [data-theme="dark"] .icon-sun  { opacity: 0; transform: rotate(90deg) scale(0.5); }
+    [data-theme="dark"] .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
 
     html {
       font-size: 18px;
@@ -51,7 +150,7 @@
       padding: 18px 40px;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       max-width: var(--max-wide);
       margin: 0 auto;
     }
@@ -817,11 +916,32 @@
 </head>
 <body>
 
+  <!-- RIPPLE OVERLAY -->
+  <div id="theme-ripple" aria-hidden="true"></div>
+
   <!-- MASTHEAD -->
   <header>
     <div class="masthead">
       <span class="pub-name">The Academic Review</span>
       <span class="pub-meta">Analysis &amp; Commentary &nbsp;/&nbsp; March 2026 &nbsp;/&nbsp; Higher Education &amp; Technology</span>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <!-- Sun -->
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4.5"/>
+          <line x1="12" y1="2" x2="12" y2="5"/>
+          <line x1="12" y1="19" x2="12" y2="22"/>
+          <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+          <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+          <line x1="2" y1="12" x2="5" y2="12"/>
+          <line x1="19" y1="12" x2="22" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+          <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon -->
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+        </svg>
+      </button>
     </div>
   </header>
 
@@ -1260,6 +1380,69 @@
     <p>The Academic Review &mdash; Higher Education &amp; Technology</p>
     <p>March 2026 &nbsp;&middot;&nbsp; All references cited in body text</p>
   </footer>
+
+  <script>
+    (function () {
+      const html    = document.documentElement;
+      const btn     = document.getElementById('theme-toggle');
+      const rippleContainer = document.getElementById('theme-ripple');
+
+      // Restore saved preference
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') html.setAttribute('data-theme', 'dark');
+
+      btn.addEventListener('click', function (e) {
+        const isDark   = html.getAttribute('data-theme') === 'dark';
+        const nextDark = !isDark;
+
+        // --- Ripple origin ---
+        const rect = btn.getBoundingClientRect();
+        const originX = rect.left + rect.width  / 2;
+        const originY = rect.top  + rect.height / 2;
+
+        // Compute radius to cover entire viewport
+        const maxDist = Math.hypot(
+          Math.max(originX, window.innerWidth  - originX),
+          Math.max(originY, window.innerHeight - originY)
+        );
+        const diameter = maxDist * 2;
+
+        // Create ripple circle
+        const circle = document.createElement('div');
+        circle.className = 'ripple-circle';
+        circle.style.cssText = [
+          'width:'  + diameter + 'px',
+          'height:' + diameter + 'px',
+          'left:'   + (originX - maxDist) + 'px',
+          'top:'    + (originY - maxDist) + 'px',
+          'background:' + (nextDark ? '#141210' : '#faf9f7'),
+        ].join(';');
+
+        rippleContainer.appendChild(circle);
+
+        // Start animation next frame so CSS picks it up
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            circle.classList.add('animating');
+          });
+        });
+
+        // Switch theme at the midpoint of the animation
+        setTimeout(() => {
+          if (nextDark) {
+            html.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+          } else {
+            html.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+          }
+        }, 280);
+
+        // Remove ripple after animation ends
+        circle.addEventListener('animationend', () => circle.remove());
+      });
+    })();
+  </script>
 
 </body>
 </html>
