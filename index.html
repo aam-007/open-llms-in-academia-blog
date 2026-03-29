@@ -42,7 +42,6 @@
       --accent: #d46840;
     }
 
-    /* ---- THEME TRANSITION ---- */
     *, *::before, *::after {
       transition:
         background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
@@ -51,7 +50,6 @@
         box-shadow       0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Exempt motion-sensitive properties from blanket transition */
     a, button, .up-next-cta, .newsletter-cta, .sidebar-toc a, .cr-item, .mf-card {
       transition:
         background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
@@ -61,7 +59,6 @@
         opacity 0.2s ease;
     }
 
-    /* ---- RIPPLE OVERLAY ---- */
     #theme-ripple {
       position: fixed;
       inset: 0;
@@ -87,7 +84,6 @@
       100% { transform: scale(1); opacity: 0; }
     }
 
-    /* ---- TOGGLE BUTTON ---- */
     .theme-toggle {
       position: relative;
       width: var(--toggle-size);
@@ -105,16 +101,9 @@
       overflow: hidden;
     }
 
-    .theme-toggle:hover {
-      border-color: var(--ink-faint);
-    }
+    .theme-toggle:hover { border-color: var(--ink-faint); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    .theme-toggle:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    /* Sun icon */
     .icon-sun, .icon-moon {
       position: absolute;
       width: 14px;
@@ -122,11 +111,8 @@
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
     }
 
-    /* Light mode: show sun, hide moon */
     :root .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
     :root .icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.5); }
-
-    /* Dark mode: show moon, hide sun */
     [data-theme="dark"] .icon-sun  { opacity: 0; transform: rotate(90deg) scale(0.5); }
     [data-theme="dark"] .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
 
@@ -144,7 +130,6 @@
       line-height: 1.75;
     }
 
-    /* ---- MASTHEAD ---- */
     .masthead {
       border-bottom: 1px solid var(--ink);
       padding: 18px 40px;
@@ -170,7 +155,6 @@
       letter-spacing: 0.04em;
     }
 
-    /* ---- HERO ---- */
     .hero {
       max-width: var(--max-wide);
       margin: 0 auto;
@@ -234,12 +218,8 @@
       line-height: 1.8;
     }
 
-    .byline-text strong {
-      color: var(--ink);
-      font-weight: 500;
-    }
+    .byline-text strong { color: var(--ink); font-weight: 500; }
 
-    /* ---- LAYOUT ---- */
     .layout {
       max-width: var(--max-wide);
       margin: 0 auto;
@@ -250,14 +230,12 @@
       align-items: start;
     }
 
-    /* ---- ARTICLE ---- */
     .article {
       padding: 56px 0;
       border-right: 1px solid var(--rule);
       padding-right: 56px;
     }
 
-    /* ---- SIDEBAR ---- */
     .sidebar {
       padding: 56px 0;
       position: sticky;
@@ -270,9 +248,7 @@
       border-bottom: 1px solid var(--rule-light);
     }
 
-    .sidebar-section:last-child {
-      border-bottom: none;
-    }
+    .sidebar-section:last-child { border-bottom: none; }
 
     .sidebar-label {
       font-family: var(--mono);
@@ -296,14 +272,9 @@
       line-height: 1.45;
     }
 
-    .sidebar-toc a:hover {
-      color: var(--ink);
-      border-left-color: var(--accent);
-    }
+    .sidebar-toc a:hover { color: var(--ink); border-left-color: var(--accent); }
 
-    .sidebar-stat {
-      margin-bottom: 12px;
-    }
+    .sidebar-stat { margin-bottom: 12px; }
 
     .sidebar-stat .num {
       font-family: var(--serif-display);
@@ -322,7 +293,21 @@
       margin-top: 3px;
     }
 
-    /* ---- PROSE ---- */
+    /* Survey badge on stat */
+    .sidebar-stat .survey-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 1px 5px;
+      margin-left: 4px;
+      vertical-align: middle;
+      opacity: 0.8;
+    }
+
     .drop-cap::first-letter {
       font-family: var(--serif-display);
       font-size: 4.5rem;
@@ -367,18 +352,14 @@
       color: var(--ink);
     }
 
-    p + p {
-      text-indent: 1.4em;
-    }
+    p + p { text-indent: 1.4em; }
 
     p:first-child,
     h2 + p,
     h3 + p,
     .pullquote + p,
     .callout + p,
-    .figure + p {
-      text-indent: 0;
-    }
+    .figure + p { text-indent: 0; }
 
     a {
       color: var(--ink);
@@ -388,15 +369,9 @@
       transition: text-decoration-color 0.15s;
     }
 
-    a:hover {
-      text-decoration-color: var(--accent);
-    }
+    a:hover { text-decoration-color: var(--accent); }
+    strong { font-weight: 500; }
 
-    strong {
-      font-weight: 500;
-    }
-
-    /* ---- PULLQUOTE ---- */
     .pullquote {
       border-top: 2px solid var(--ink);
       border-bottom: 1px solid var(--rule);
@@ -423,7 +398,6 @@
       font-style: normal;
     }
 
-    /* ---- CALLOUT ---- */
     .callout {
       background: var(--bg-warm);
       border-left: 3px solid var(--accent);
@@ -447,10 +421,7 @@
       margin-bottom: 0;
     }
 
-    /* ---- FIGURE ---- */
-    .figure {
-      margin: 44px 0;
-    }
+    .figure { margin: 44px 0; }
 
     .figure-table {
       width: 100%;
@@ -478,9 +449,7 @@
       color: var(--ink);
     }
 
-    .figure-table tr:last-child td {
-      border-bottom: none;
-    }
+    .figure-table tr:last-child td { border-bottom: none; }
 
     .figure-caption {
       font-family: var(--mono);
@@ -491,14 +460,23 @@
       margin-top: 10px;
     }
 
-    /* ---- RULE ---- */
+    /* Inline bar for survey data */
+    .data-bar {
+      display: inline-block;
+      height: 6px;
+      background: var(--accent);
+      opacity: 0.55;
+      vertical-align: middle;
+      margin-left: 8px;
+      border-radius: 1px;
+    }
+
     .section-rule {
       border: none;
       border-top: 1px solid var(--rule);
       margin: 48px 0;
     }
 
-    /* ---- FOOTNOTES / REFERENCES ---- */
     .references {
       margin-top: 64px;
       padding-top: 32px;
@@ -516,9 +494,7 @@
       color: var(--ink-faint);
     }
 
-    .references h2::before {
-      display: none;
-    }
+    .references h2::before { display: none; }
 
     .ref-list {
       list-style: none;
@@ -535,9 +511,7 @@
       line-height: 1.55;
     }
 
-    .ref-list li:last-child {
-      border-bottom: none;
-    }
+    .ref-list li:last-child { border-bottom: none; }
 
     .ref-list li::before {
       content: counter(ref-counter);
@@ -549,7 +523,6 @@
       top: 11px;
     }
 
-    /* ---- CONTINUE READING ---- */
     .continue-reading {
       border-top: 2px solid var(--ink);
       border-bottom: 1px solid var(--rule);
@@ -588,10 +561,7 @@
       padding-bottom: 14px;
     }
 
-    .cr-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
+    .cr-item:last-child { border-bottom: none; padding-bottom: 0; }
 
     .cr-item:hover .cr-title {
       text-decoration: underline;
@@ -623,7 +593,6 @@
       color: var(--ink-faint);
     }
 
-    /* ---- UP NEXT BANNER ---- */
     .up-next-banner {
       background: var(--ink);
       color: var(--bg);
@@ -687,13 +656,8 @@
       transition: border-color 0.15s, color 0.15s;
     }
 
-    .up-next-cta:hover {
-      border-color: #fff;
-      color: #fff;
-      text-decoration: none;
-    }
+    .up-next-cta:hover { border-color: #fff; color: #fff; text-decoration: none; }
 
-    /* ---- MORE FROM ---- */
     .more-from {
       max-width: var(--max-wide);
       margin: 0 auto;
@@ -728,9 +692,7 @@
       text-decoration: none;
     }
 
-    .more-from-all:hover {
-      text-decoration: underline;
-    }
+    .more-from-all:hover { text-decoration: underline; }
 
     .more-from-grid {
       display: grid;
@@ -749,11 +711,7 @@
       gap: 8px;
     }
 
-    .mf-card:last-child {
-      border-right: none;
-      padding-right: 0;
-      margin-right: 0;
-    }
+    .mf-card:last-child { border-right: none; padding-right: 0; margin-right: 0; }
 
     .mf-card:hover .mf-title {
       text-decoration: underline;
@@ -796,7 +754,6 @@
       border-top: 1px solid var(--rule-light);
     }
 
-    /* ---- NEWSLETTER STRIP ---- */
     .newsletter-strip {
       background: var(--bg-warm);
       border-top: 1px solid var(--rule);
@@ -842,13 +799,8 @@
       transition: background 0.15s;
     }
 
-    .newsletter-cta:hover {
-      background: var(--accent);
-      text-decoration: none;
-      color: var(--bg);
-    }
+    .newsletter-cta:hover { background: var(--accent); text-decoration: none; color: var(--bg); }
 
-    /* ---- FOOTER ---- */
     footer {
       border-top: 1px solid var(--ink);
       max-width: var(--max-wide);
@@ -869,7 +821,6 @@
       text-indent: 0;
     }
 
-    /* ---- RESPONSIVE ADDITIONS ---- */
     @media (max-width: 768px) {
       .up-next-banner {
         margin: 48px 0 0;
@@ -885,47 +836,23 @@
       .newsletter-strip { flex-direction: column; align-items: flex-start; gap: 16px; }
       .continue-reading { flex-direction: column; gap: 14px; }
       .continue-reading-label { min-width: unset; }
-    }
-
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 768px) {
-      .masthead, .hero, footer {
-        padding-left: 22px;
-        padding-right: 22px;
-      }
-
-      .layout {
-        grid-template-columns: 1fr;
-        padding: 0 22px;
-      }
-
-      .article {
-        border-right: none;
-        padding-right: 0;
-      }
-
-      .sidebar {
-        position: static;
-        border-top: 1px solid var(--rule);
-        padding-top: 36px;
-      }
-
+      .masthead, .hero, footer { padding-left: 22px; padding-right: 22px; }
+      .layout { grid-template-columns: 1fr; padding: 0 22px; }
+      .article { border-right: none; padding-right: 0; }
+      .sidebar { position: static; border-top: 1px solid var(--rule); padding-top: 36px; }
       .sidebar-toc { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- RIPPLE OVERLAY -->
   <div id="theme-ripple" aria-hidden="true"></div>
 
-  <!-- MASTHEAD -->
   <header>
     <div class="masthead">
       <span class="pub-name">The Academic Review</span>
       <span class="pub-meta">Analysis &amp; Commentary &nbsp;/&nbsp; March 2026 &nbsp;/&nbsp; Higher Education &amp; Technology</span>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-        <!-- Sun -->
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4.5"/>
           <line x1="12" y1="2" x2="12" y2="5"/>
@@ -937,7 +864,6 @@
           <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
           <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
         </svg>
-        <!-- Moon -->
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
         </svg>
@@ -945,7 +871,6 @@
     </div>
   </header>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-label">AI in Academia</div>
     <h1 class="hero-title">The Future of AI in Academia: Open Source LLMs and AI-Powered Work</h1>
@@ -962,10 +887,8 @@
     </div>
   </section>
 
-  <!-- TWO-COLUMN LAYOUT -->
   <div class="layout">
 
-    <!-- ARTICLE BODY -->
     <article class="article">
 
       <!-- SECTION 1 -->
@@ -982,9 +905,10 @@
 
       <p>The policy architecture is beginning to reflect this urgency. <strong>The National Education Policy (NEP) 2020</strong> explicitly calls for the integration of AI and computational thinking across all levels of schooling. The Union Budget 2025-26 allocated Rs 500 crore for a dedicated Centre of Excellence in AI for Education, and AI and Computational Thinking is being introduced as a compulsory subject from Class 3, beginning academic year 2026-27. The <strong>IndiaAI Mission</strong>, launched in March 2024 with a budget of Rs 10,371.92 crore, fosters innovation across government, startups, and academia, and by 2025-26 its budget had received a 1,056 percent increase to Rs 2,000 crore for its FutureSkills pillar alone.</p>
 
+      <!-- *** CHANGE 1: Updated survey context callout with n=20 and consent info *** -->
       <div class="callout">
         <div class="callout-label">Survey Context</div>
-        <p>This blog draws on the results of a campus-wide survey at an Indian university exploring student and faculty perspectives on AI, open-source LLM access, and AI-assisted academic work. Participation was voluntary and responses were anonymous. The findings informed the policy recommendations in the final section of this report.</p>
+        <p>This blog draws on the results of a campus-wide survey at an Indian university exploring student and faculty perspectives on AI, open-source LLM access, and AI-assisted academic work. Twenty respondents participated, all of whom provided consent for their responses to be used in this report. Participation was voluntary and responses were anonymous. The findings — and the quantitative patterns they reveal — informed the policy recommendations in the final section.</p>
       </div>
 
       <p>Yet the ground-level reality is uneven. According to UDISE+ 2024-25 data, only about 58 percent of Indian schools have functional computers, and internet access hovers around 64 percent. More than 7 percent of schools are single-teacher institutions. This infrastructure gap does not disappear at the university level. While leading institutions like the IITs and IISc are investing heavily in AI infrastructure, many state universities and smaller engineering colleges remain under-resourced.</p>
@@ -1055,7 +979,6 @@
 
       <p>In early 2024, Carnegie Mellon University offered a course where students built their own mini-GPT by progressively training and fine-tuning open models, a form of hands-on engagement that would have been impossible in an era of only proprietary models. This kind of pedagogical innovation, where the tool itself is the subject of inquiry, is precisely what open-source access enables.</p>
 
-      <!-- CONTINUE READING (inline) -->
       <div class="continue-reading">
         <div class="continue-reading-label">Continue Reading</div>
         <div class="continue-reading-links">
@@ -1128,6 +1051,9 @@
         <cite>Adapted from the survey framework, March 2026</cite>
       </div>
 
+      <!-- *** CHANGE 2: New paragraph on survey restriction findings *** -->
+      <p>Survey respondents were asked directly to name academic tasks they believed should be restricted from AI assistance. The most consistently cited category was creative and artistic work — original writing, scripts, speeches, literary composition, and visual art — reflecting a view that these tasks derive their value precisely from unaided human expression. Examinations and individually assessed work came up frequently as well, with several respondents noting that any task requiring genuine intellectual effort or original argumentation should remain unassisted. The convergence is notable: respondents are active AI users themselves — 40 percent engaging with these tools daily — yet they articulate clear boundaries around the kinds of work they believe should stay human. This is not technophobia. It is a thoughtful, self-imposed standard that institutional policy should seek to formalise and support.</p>
+
       <p>India's leading institutions are beginning to respond. IIT Delhi formed a dedicated committee in April 2024 that explored how generative AI tools could be ethically integrated into teaching and research; after collecting feedback from students and faculty, the committee revealed that 80 percent of students reported using generative AI tools regularly and established mandatory disclosure requirements for AI-generated content. IIT Delhi is the first IIT to officially release such guidelines.</p>
 
       <p>The guidelines specify that any work or content generated with the assistance of AI tools must be completely disclosed to guarantee transparency, and that if AI tools are used to create distinct elements such as images, tables, data visualisations, or significant sections of text, this use should be noted in captions, footnotes, or a statement within the work.</p>
@@ -1139,7 +1065,8 @@
       <!-- SECTION 7 -->
       <h2 id="campus">The Case for Campus-Wide Open-Source LLM Access</h2>
 
-      <p>The survey asked a direct question: should the university provide campus-wide access to an open-source large language model, hosted on institutional infrastructure? The responses were instructive. Students overwhelmingly supported the idea, citing cost, privacy, and the desire to experiment. Faculty were more divided, with concerns about misuse, the undermining of assessments, and the risk of students becoming dependent on AI for reasoning tasks they should develop themselves. Both concerns are valid. Both can be addressed through policy.</p>
+      <!-- *** CHANGE 3: Updated opening paragraph with specific survey numbers *** -->
+      <p>The survey asked a direct question: should the university provide campus-wide access to an open-source large language model, hosted on institutional infrastructure? The responses were instructive. Sixty percent of respondents rated campus-wide LLM access as highly beneficial — awarding it a 4 or 5 on a five-point scale — with an overall group average of 3.9 out of 5. Only one respondent gave the lowest possible rating, and notably, that individual was also among the most frequent daily users of AI tools in the cohort, a reminder that personal enthusiasm for AI and support for institutional provision do not always align. Concerns about misuse, the undermining of assessments, and the risk of students becoming dependent on AI for reasoning tasks they should develop themselves are present and legitimate. Both positions can be addressed through policy.</p>
 
       <p>The argument for institutional provision is, at its core, an equity argument. Students at well-funded private universities or those with personal means to pay for commercial AI subscriptions already have access to powerful AI tools. Their peers at underfunded state universities or from lower-income families do not. Leaving AI access to the market means that AI becomes yet another vector of educational inequality, layered atop existing divides of language, geography, and socioeconomic status.</p>
 
@@ -1181,7 +1108,58 @@
         <p class="figure-caption">Table 2: Key concerns raised in the campus survey and proposed institutional responses.</p>
       </div>
 
-      <p>The privacy argument for open-source, locally hosted models is particularly compelling in the Indian context. The <strong>Digital Personal Data Protection Act, 2023</strong> places significant obligations on entities that process personal data. When students submit queries about their research, their mental health, their career anxieties, and their academic struggles to commercial AI systems, that data flows to servers outside India, governed by terms of service that few students read and fewer understand. A self-hosted open-source model eliminates this exposure entirely.</p>
+      <!-- *** CHANGE 4: New Figure with survey data breakdown *** -->
+      <div class="figure">
+        <table class="figure-table">
+          <thead>
+            <tr>
+              <th>Survey Dimension</th>
+              <th>Finding</th>
+              <th>n = 20</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Campus LLM access: perceived benefit</strong><br><span style="font-size:0.7rem;color:var(--ink-faint);">Scale 1–5; how beneficial would campus-wide open-source LLM access be?</span></td>
+              <td>Avg. 3.9 / 5 &nbsp;&bull;&nbsp; 60% rated 4 or 5</td>
+              <td><span class="data-bar" style="width:60px"></span></td>
+            </tr>
+            <tr>
+              <td><strong>Current AI use frequency</strong><br><span style="font-size:0.7rem;color:var(--ink-faint);">How often do you use AI tools for study or work?</span></td>
+              <td>Daily 40% &nbsp;&bull;&nbsp; Monthly 30% &nbsp;&bull;&nbsp; Weekly 15% &nbsp;&bull;&nbsp; Rarely 15%</td>
+              <td><span class="data-bar" style="width:40px"></span></td>
+            </tr>
+            <tr>
+              <td><strong>LLM familiarity (top tools)</strong><br><span style="font-size:0.7rem;color:var(--ink-faint);">Which open-source / AI tools have you used or are familiar with?</span></td>
+              <td>Chat-GPT 80% &nbsp;&bull;&nbsp; Bloom 50% &nbsp;&bull;&nbsp; Claude 45% &nbsp;&bull;&nbsp; Mistral 35% &nbsp;&bull;&nbsp; Llama 20%</td>
+              <td><span class="data-bar" style="width:80px"></span></td>
+            </tr>
+            <tr>
+              <td><strong>AI workshops: student importance</strong><br><span style="font-size:0.7rem;color:var(--ink-faint);">How important is access to AI-focused workshops and training?</span></td>
+              <td>95% rated 4 or 5 out of 5</td>
+              <td><span class="data-bar" style="width:95px"></span></td>
+            </tr>
+            <tr>
+              <td><strong>Institutional workshop support (current rating)</strong><br><span style="font-size:0.7rem;color:var(--ink-faint);">How would you rate the institution's training workshop provision?</span></td>
+              <td>Very Poor 45% &nbsp;&bull;&nbsp; Satisfactory 45% &nbsp;&bull;&nbsp; Excellent 10%</td>
+              <td><span class="data-bar" style="width:10px"></span></td>
+            </tr>
+            <tr>
+              <td><strong>Who should set AI policy?</strong><br><span style="font-size:0.7rem;color:var(--ink-faint);">Primary responsibility for developing and enforcing AI usage policies</span></td>
+              <td>Faculty / Academic Senate 60% &nbsp;&bull;&nbsp; IT Dept 55% &nbsp;&bull;&nbsp; Student Reps 50% &nbsp;&bull;&nbsp; Univ. Admin 45%</td>
+              <td>&mdash;</td>
+            </tr>
+            <tr>
+              <td><strong>Data privacy in AI implementation</strong><br><span style="font-size:0.7rem;color:var(--ink-faint);">Importance of data privacy &amp; security when deploying AI tools</span></td>
+              <td>Crucial 35% &nbsp;&bull;&nbsp; Very Important 15% &nbsp;&bull;&nbsp; Moderately Important 15%</td>
+              <td><span class="data-bar" style="width:50px"></span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="figure-caption">Table 3: Campus survey results (n = 20, March 2026). All respondents provided consent. Respondents could select multiple options for policy roles and LLM familiarity. Bar lengths are proportional to the primary percentage cited.</p>
+      </div>
+
+      <p>The privacy argument for open-source, locally hosted models is particularly compelling in the Indian context. The <strong>Digital Personal Data Protection Act, 2023</strong> places significant obligations on entities that process personal data. When students submit queries about their research, their mental health, their career anxieties, and their academic struggles to commercial AI systems, that data flows to servers outside India, governed by terms of service that few students read and fewer understand. A self-hosted open-source model eliminates this exposure entirely. That 35 percent of survey respondents rated data privacy as a <em>crucial</em> factor in AI implementation — with another 15 percent rating it very important — reflects a student body that is more conscious of this risk than institutions may assume.</p>
 
       <!-- SECTION 8 -->
       <h2 id="governance">Governance, Ethics, and the Road Ahead</h2>
@@ -1190,7 +1168,10 @@
 
       <p>The IndiaAI Governance Guidelines, developed under an Advisory Group chaired by the Principal Scientific Advisor, outline a coordinated whole-of-government approach to AI compliance and responsible deployment, with direct relevance to educational institutions. These guidelines represent an important policy floor. Universities must build on them, not merely satisfy them.</p>
 
-      <p>Faculty development is a dimension that often goes unaddressed in technology policy. It is insufficient to deploy an LLM on campus if faculty have not been equipped to redesign their courses, assessment strategies, and research workflows in response. UGC has supported the establishment of research centres focusing on AI and machine learning, and AICTE has encouraged institutions to introduce interdisciplinary AI courses and establish AI labs aligned with industry standards. These are necessary but not sufficient. What is needed is granular, discipline-specific guidance: what does responsible AI use look like in a sociology seminar, a civil engineering lab, a law school, a school of fine arts?</p>
+      <!-- *** CHANGE 5: New paragraph with workshop support data from survey *** -->
+      <p>Faculty development is a dimension that often goes unaddressed in technology policy, and the survey data reveals the gap in stark terms. When asked to rate the institution's current provision of AI training workshops, 45 percent of respondents gave the lowest possible score — Very Poor — and another 45 percent managed only Satisfactory. A mere 10 percent rated it Excellent. Contrast this with the 95 percent of those same respondents who rated access to AI-focused workshops as important or very important, and the mismatch is not subtle. Students want training; the institution is not yet delivering it at the standard they need. It is insufficient to deploy an LLM on campus if faculty and students have not been equipped to use it responsibly.</p>
+
+      <p>UGC has supported the establishment of research centres focusing on AI and machine learning, and AICTE has encouraged institutions to introduce interdisciplinary AI courses and establish AI labs aligned with industry standards. These are necessary but not sufficient. What is needed is granular, discipline-specific guidance: what does responsible AI use look like in a sociology seminar, a civil engineering lab, a law school, a school of fine arts?</p>
 
       <p>The concept of "digital temperance," implementing policies that encourage students to engage unaided with foundational concepts before using AI assistants, is gaining currency as an approach to building meta-cognitive resilience. It is a useful framing, though its application requires care. There is a meaningful difference between a student who uses AI because she genuinely cannot understand a concept without scaffolding, and a student who uses AI to avoid the effort of engaging at all. Policy must distinguish between these cases.</p>
 
@@ -1205,13 +1186,13 @@
       <p>The survey results, combined with the policy and research landscape reviewed above, support the following institutional recommendations. They are offered not as a universal prescription but as a starting framework that institutions should adapt to their specific contexts, resources, and student populations.</p>
 
       <h3>1. Establish a Campus AI Policy Council</h3>
-      <p>Convene a standing body with representation from faculty across disciplines, students, technical staff, and institutional leadership. This council should develop and revise AI usage policies, review academic integrity cases involving AI, and serve as the institutional interface with UGC and AICTE guidance.</p>
+      <p>Convene a standing body with representation from faculty across disciplines, students, technical staff, and institutional leadership. Survey respondents nominated Faculty/Academic Senate (60%), the IT Department (55%), and Student Representatives (50%) as the primary stakeholders in AI policy — a multi-body structure that should be mirrored in any governance council. This council should develop and revise AI usage policies, review academic integrity cases involving AI, and serve as the institutional interface with UGC and AICTE guidance.</p>
 
       <h3>2. Pilot a Self-Hosted Open-Source LLM</h3>
-      <p>Partner with the IndiaAI Mission or peer institutions to deploy a locally hosted open-source model, prioritising models with strong Indic language capabilities. Begin with a controlled pilot open to graduate researchers before broader rollout. Measure usage patterns, assess impact on research output, and gather structured feedback.</p>
+      <p>Partner with the IndiaAI Mission or peer institutions to deploy a locally hosted open-source model, prioritising models with strong Indic language capabilities. Begin with a controlled pilot open to graduate researchers before broader rollout. Measure usage patterns, assess impact on research output, and gather structured feedback. Survey respondents already using AI daily — 40 percent of the cohort — represent an engaged early-adopter base well suited to an initial pilot group.</p>
 
       <h3>3. Redesign Assessment for the AI Era</h3>
-      <p>Phase in oral components, process portfolios, and in-class assignments across departments. Develop AI-use disclosure norms consistent with the IIT Delhi model. Invest in faculty development so that assessment redesign is informed by disciplinary context, not imposed from above.</p>
+      <p>Phase in oral components, process portfolios, and in-class assignments across departments. Develop AI-use disclosure norms consistent with the IIT Delhi model. Invest in faculty development so that assessment redesign is informed by disciplinary context, not imposed from above. Survey respondents were clear that creative and expressive work — original writing, artistic production, speeches — should remain unassisted, a consensus that can guide which assessment types are preserved in AI-free form.</p>
 
       <h3>4. Contribute to India's AI Ecosystem</h3>
       <p>Encourage faculty and student contributions to open-source Indic language datasets and benchmarks. Institutions that participate in building tools like AI4Bharat's corpora or BharatGen's training data are not merely consumers of AI; they become co-producers of a more equitable AI future.</p>
@@ -1221,7 +1202,6 @@
 
       <hr class="section-rule" />
 
-      <!-- CONCLUSION -->
       <h2 id="conclusion">Conclusion: The University as a Site of Contested Futures</h2>
 
       <p>The rise of AI in academia is not a single event but a process, uneven, contested, and full of consequence. For India, a country where the stakes of educational access are among the highest in the world, the choices made in the next few years about how universities adopt, govern, and critique AI will shape intellectual life for a generation.</p>
@@ -1230,7 +1210,6 @@
 
       <p>The students who responded to the survey that inspired this report are not asking for AI to replace their education. They are asking for the tools to participate fully in a world that is being reshaped by AI whether their institutions are ready for it or not. The appropriate institutional response is neither panic nor cheerleading. It is the same thing that good universities have always done: ask hard questions, build robust frameworks, and keep the focus relentlessly on learning.</p>
 
-      <!-- REFERENCES -->
       <div class="references">
         <h2>References</h2>
         <ol class="ref-list">
@@ -1254,10 +1233,10 @@
           <li>The Higher Education Review. (2025, August). <em>IIT Delhi introduces strict GenAI usage rules for students and faculty.</em> <a href="https://www.thehighereducationreview.com" target="_blank">thehighereducationreview.com</a></li>
           <li>University Grants Commission. (2024). <em>National Programme on Artificial Intelligence (NPAI) Skilling Framework.</em> UGC, New Delhi.</li>
           <li>Zuboff, S. (2023). <em>The Age of Surveillance Capitalism: The Fight for a Human Future at the New Frontier of Power</em> (reprint ed.). PublicAffairs.</li>
+          <li>Campus Survey on AI in Academia. (2026, March). <em>Unpublished primary data (n = 20). Conducted at an Indian university; all respondents provided consent.</em></li>
         </ol>
       </div>
 
-      <!-- UP NEXT BANNER -->
       <div class="up-next-banner">
         <div class="up-next-badge">Up Next</div>
         <div class="up-next-content">
@@ -1288,6 +1267,7 @@
         </nav>
       </div>
 
+      <!-- *** CHANGE 6: Sidebar stats — added 2 survey-specific stats *** -->
       <div class="sidebar-section">
         <div class="sidebar-label">Key figures</div>
 
@@ -1302,13 +1282,23 @@
         </div>
 
         <div class="sidebar-stat">
-          <div class="num">22</div>
-          <div class="label">Indian languages targeted by BharatGen LLMs</div>
+          <div class="num">3.9 <span style="font-size:1rem;font-weight:400">/ 5</span></div>
+          <div class="label">Avg. perceived benefit of campus LLM access <span class="survey-tag">survey</span></div>
         </div>
 
         <div class="sidebar-stat">
-          <div class="num">250M+</div>
-          <div class="label">Learners in India's higher education ecosystem</div>
+          <div class="num">95%</div>
+          <div class="label">Respondents rating AI workshops as important (4–5 / 5) <span class="survey-tag">survey</span></div>
+        </div>
+
+        <div class="sidebar-stat">
+          <div class="num">40%</div>
+          <div class="label">Respondents using AI tools daily <span class="survey-tag">survey</span></div>
+        </div>
+
+        <div class="sidebar-stat">
+          <div class="num">22</div>
+          <div class="label">Indian languages targeted by BharatGen LLMs</div>
         </div>
 
         <div class="sidebar-stat">
@@ -1329,13 +1319,12 @@
 
       <div class="sidebar-section">
         <div class="sidebar-label">About this report</div>
-        <p style="font-size:0.75rem;color:var(--ink-muted);line-height:1.6;">This blog draws on a campus survey on AI in academia, supplemented by analysis of policy documents, institutional guidelines, and peer-reviewed research published between 2023 and 2026. It is intended to inform university policy deliberations, not to represent the views of any specific institution.</p>
+        <p style="font-size:0.75rem;color:var(--ink-muted);line-height:1.6;">This blog draws on a campus survey on AI in academia (n = 20, March 2026; all respondents consented), supplemented by analysis of policy documents, institutional guidelines, and peer-reviewed research published between 2023 and 2026. It is intended to inform university policy deliberations, not to represent the views of any specific institution.</p>
       </div>
 
     </aside>
   </div>
 
-  <!-- MORE FROM THE ACADEMIC REVIEW -->
   <section class="more-from">
     <div class="more-from-header">
       <span class="more-from-heading">More from The Academic Review</span>
@@ -1367,7 +1356,6 @@
     </div>
   </section>
 
-  <!-- NEWSLETTER -->
   <div class="newsletter-strip">
     <div class="newsletter-text">
       <span class="newsletter-heading">The Academic Review &mdash; Weekly Briefing</span>
@@ -1387,7 +1375,6 @@
       const btn     = document.getElementById('theme-toggle');
       const rippleContainer = document.getElementById('theme-ripple');
 
-      // Restore saved preference
       const saved = localStorage.getItem('theme');
       if (saved === 'dark') html.setAttribute('data-theme', 'dark');
 
@@ -1395,19 +1382,16 @@
         const isDark   = html.getAttribute('data-theme') === 'dark';
         const nextDark = !isDark;
 
-        // --- Ripple origin ---
         const rect = btn.getBoundingClientRect();
         const originX = rect.left + rect.width  / 2;
         const originY = rect.top  + rect.height / 2;
 
-        // Compute radius to cover entire viewport
         const maxDist = Math.hypot(
           Math.max(originX, window.innerWidth  - originX),
           Math.max(originY, window.innerHeight - originY)
         );
         const diameter = maxDist * 2;
 
-        // Create ripple circle
         const circle = document.createElement('div');
         circle.className = 'ripple-circle';
         circle.style.cssText = [
@@ -1420,14 +1404,12 @@
 
         rippleContainer.appendChild(circle);
 
-        // Start animation next frame so CSS picks it up
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             circle.classList.add('animating');
           });
         });
 
-        // Switch theme at the midpoint of the animation
         setTimeout(() => {
           if (nextDark) {
             html.setAttribute('data-theme', 'dark');
@@ -1438,7 +1420,6 @@
           }
         }, 280);
 
-        // Remove ripple after animation ends
         circle.addEventListener('animationend', () => circle.remove());
       });
     })();
